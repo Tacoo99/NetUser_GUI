@@ -21,6 +21,7 @@ public class App extends Application {
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")));
             stage.getIcons().add(icon);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         }
 

@@ -1,6 +1,8 @@
 package netuser;
 
-import javafx.event.ActionEvent;
+import io.github.palexdev.materialfx.controls.MFXCheckbox;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -12,49 +14,52 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Optional;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
+
+
 public class NetUserClass {
 
     @FXML
-    private TextField fullName;
+    private MFXCheckbox domainCheckbox;
 
     @FXML
-    private TextField accountExpires;
+    private MFXTextField fullName;
 
     @FXML
-    private TextField activeAccount;
+    private MFXTextField accountExpires;
 
     @FXML
-    private Button changeBtn;
+    private MFXTextField activeAccount;
+
 
     @FXML
-    private TextField lastChange;
+    private MFXTextField lastChange;
 
     @FXML
-    private TextField lastLogin;
+    private MFXTextField lastLogin;
 
     @FXML
-    private PasswordField newPassword;
+    private MFXPasswordField newPassword;
 
     @FXML
-    private PasswordField repeatPassword;
+    private MFXPasswordField repeatPassword;
 
     @FXML
-    private TextField passwordExpires;
+    private MFXTextField passwordExpires;
 
     @FXML
-    private Button searchBtn;
+    private MFXButton searchBtn;
 
     @FXML
-    private TextField username;
+    private MFXTextField username;
 
-    boolean checkUsername(TextField textField) {
+    boolean checkUsername(MFXTextField textField) {
         String usernameText = textField.getText();
         return !usernameText.isEmpty();
     }
 
     String getUsername() {
-        String usernameText = username.getText();
-        return usernameText;
+        return username.getText();
     }
 
     void myAlert(Alert.AlertType alertType, String title, String header, String content) {
@@ -86,16 +91,18 @@ public class NetUserClass {
         String[] parts = after.split(" ");
         size = parts.length;
         while (number < size) {
-            result.append(parts[number] + " ");
+            result.append(parts[number]).append(" ");
             number++;
         }
         return result.toString();
     }
 
+
+
     void GetInformation(Process p) {
         try {
             BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String output = "";
+            String output;
             int i = 0;
             while ((output = output_reader.readLine()) != null) {
                 i++;
@@ -115,6 +122,9 @@ public class NetUserClass {
 
                 if (i == 7) {
                     accountExpires.setText(formatString(output, 2));
+                    if(accountExpires.getText().matches("(.*)N(.*)")){
+                        accountExpires.setStyle("-fx-border-color: green");
+                    }
                 }
 
                 if (i == 9) {
@@ -123,6 +133,9 @@ public class NetUserClass {
 
                 if (i == 10) {
                     passwordExpires.setText(formatString(output, 3));
+                    if(passwordExpires.getText().matches("(.*)N(.*)")){
+                        passwordExpires.setStyle("-fx-border-color: green");
+                    }
                 }
 
                 if (i == 19) {
@@ -159,7 +172,7 @@ public class NetUserClass {
     }
 
     void clearPasswords(){
-        for (PasswordField passwordField : Arrays.asList(newPassword, repeatPassword)) {
+        for (MFXPasswordField passwordField : Arrays.asList(newPassword, repeatPassword)) {
             passwordField.clear();
         }
     }
@@ -170,27 +183,7 @@ public class NetUserClass {
         String repeatedPassword = repeatPassword.getText();
 
         if(password.equals(repeatedPassword)){
-            if (checkUsername(username)) {
-                try {
-                    ProcessBuilder build_test = new ProcessBuilder(
-                            "cmd.exe", "/c", "net user " + getUsername() + " " + password);
-                    Process p = build_test.start();
-                    int r = p.waitFor(); // Let the process finish.
-                    if (r != 0) { // Error
-                        myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem ze zmianą hasła", "Hasło użytkownika " + getUsername() + " nie zostało pomyślnie zmienione");
-                        clearPasswords();
-                    }
-                    else{
-                        myAlert(Alert.AlertType.INFORMATION, "Operacja powiodła się", "Hasło zostało ustawione", "Hasło użytkownika " + getUsername() + " zostało pomyślnie zmienione");
-                        clearPasswords();
-                    }
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-            } else {
-                myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Brak wszystkich wymaganych danych", "Podaj nazwę użytkownika");
-            }
+            setPassword(password);
         }
         else{
             myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wprowadzone dane są niepoprawne", "Hasła różnią się od siebie");
@@ -207,7 +200,7 @@ public class NetUserClass {
                 Process p = build_test.start();
                 int r = p.waitFor(); // Let the process finish.
                 if (r != 0) { // Error
-                    myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem z oblokowaniem/zablokowaniem konta", "Nie można było uzyskać dostępu do konta " + getUsername());
+                    myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem z odblokowaniem/zablokowaniem konta", "Nie można było uzyskać dostępu do konta " + getUsername());
                 }
                 else{
                     searchBtn.fire();
@@ -231,14 +224,42 @@ public class NetUserClass {
         manageAccount("NO");
     }
 
+    void setPassword(String password){
+        if (checkUsername(username)) {
+            try {
+                ProcessBuilder build_test = new ProcessBuilder(
+                        "cmd.exe", "/c", "net user " + getUsername() + " " + password);
+                Process p = build_test.start();
+                int r = p.waitFor(); // Let the process finish.
+                if (r != 0) { // Error
+                    myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem ze zmianą hasła", "Hasło użytkownika " + getUsername() + " nie zostało pomyślnie zmienione");
+                    clearPasswords();
+                }
+                else{
+                    myAlert(Alert.AlertType.INFORMATION, "Operacja powiodła się", "Hasło zostało ustawione", "Hasło użytkownika " + getUsername() + " zostało pomyślnie zmienione");
+                    clearPasswords();
+                }
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else {
+            myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Brak wszystkich wymaganych danych", "Podaj nazwę użytkownika");
+        }
+    }
+
     @FXML
     void setDefaultPassword(){
+        String defaultPassword = "Lato2022";
         if (checkUsername(username)) {
-            myConfirmation("Potwierdź operację", "Czy na pewno chcesz wykonać tą akcję?", "Hasło do konta użytkownika " + getUsername() +" zmieni się na standardowe SD");
+            boolean confirmation = myConfirmation("Potwierdź operację", "Czy na pewno chcesz wykonać tą akcję?", "Hasło do konta użytkownika " + getUsername() +" zmieni się na standardowe SD");
+            if(confirmation){
+                setPassword(defaultPassword);
+            }
         }
 
         else{
-
+            myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Brak wszystkich wymaganych danych", "Podaj nazwę użytkownika");
         }
     }
 
@@ -247,6 +268,10 @@ public class NetUserClass {
         if (event.getCode() == KeyCode.ENTER) {
             searchBtn.fire();
         }
+        if (event.getCode() == KeyCode.BACK_SPACE) {
+            clearFields();
+        }
+
     }
 
     @FXML
@@ -262,8 +287,9 @@ public class NetUserClass {
 
     @FXML
     void clearFields() {
-        for (TextField textField : Arrays.asList(username, fullName, activeAccount, accountExpires, lastChange, passwordExpires, lastLogin, newPassword, repeatPassword)) {
+        for (MFXTextField textField : Arrays.asList(username, fullName, activeAccount, accountExpires, lastChange, passwordExpires, lastLogin, newPassword, repeatPassword)) {
             textField.clear();
+            textField.setStyle("-fx-background-color: #a9a9a9 , white , white");
         }
     }
 
