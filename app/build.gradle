@@ -43,11 +43,11 @@ jlink {
     }
 
     jpackage{
-        installerOutputDir = file("$buildDir(/installers)")
+        installerOutputDir = file("$buildDir/installers")
         installerOptions = [
                 '--vendor', 'WKoziol-Fujitsu',
                 '--win-per-user-install', '--win-dir-chooser',
-                '--win-shortcut'
+                '--win-shortcut', '--win-menu'
         ]
     }
 }
