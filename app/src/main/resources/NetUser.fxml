@@ -93,6 +93,6 @@
             <Image url="@icons/result_64.png" />
          </image>
       </ImageView>
-      <MFXCheckbox fx:id="domainCheckbox" allowIndeterminate="true" layoutX="335.0" layoutY="162.0" selected="true" text="Użytkownik domenowy" />
+      <MFXCheckbox fx:id="domainCheckbox" layoutX="335.0" layoutY="162.0" selected="true" text="Użytkownik domenowy" />
    </children>
 </AnchorPane>

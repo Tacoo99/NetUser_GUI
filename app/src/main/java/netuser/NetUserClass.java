@@ -111,48 +111,45 @@ public class NetUserClass {
         return result.toString();
     }
 
-
-
-    void GetInformation(Process p) {
+    void GetInformation(Process p, int name, int activeAcc, int accExp, int lastCha, int passExp, int lastLog) {
         try {
             BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String output;
             int i = 0;
             while ((output = output_reader.readLine()) != null) {
                 i++;
-                if (i == 2) {
+                if (i == name) {
                     fullName.setText(formatString(output, 2));
                 }
 
-                if (i == 6) {
+                if (i == activeAcc) {
                     activeAccount.setText(formatString(output, 3));
-                    if(activeAccount.getText().matches("(.*)Tak(.*)")){
+                    if (activeAccount.getText().matches("(.*)Tak(.*)")) {
                         activeAccount.setStyle("-fx-border-color: green");
-                    }
-                    else if(activeAccount.getText().matches("(.*)Nie(.*)")){
+                    } else if (activeAccount.getText().matches("(.*)Nie(.*)")) {
                         activeAccount.setStyle("-fx-border-color: tomato");
                     }
                 }
 
-                if (i == 7) {
+                if (i == accExp) {
                     accountExpires.setText(formatString(output, 2));
-                    if(accountExpires.getText().matches("(.*)N(.*)")){
+                    if (accountExpires.getText().matches("(.*)N(.*)")) {
                         accountExpires.setStyle("-fx-border-color: green");
                     }
                 }
 
-                if (i == 9) {
+                if (i == lastCha) {
                     lastChange.setText(formatString(output, 3));
                 }
 
-                if (i == 10) {
+                if (i == passExp) {
                     passwordExpires.setText(formatString(output, 3));
-                    if(passwordExpires.getText().matches("(.*)N(.*)")){
+                    if (passwordExpires.getText().matches("(.*)N(.*)")) {
                         passwordExpires.setStyle("-fx-border-color: green");
                     }
                 }
 
-                if (i == 19) {
+                if (i == lastLog) {
                     lastLogin.setText(formatString(output, 2));
                 }
             }
@@ -164,8 +161,6 @@ public class NetUserClass {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     @FXML
@@ -181,7 +176,12 @@ public class NetUserClass {
                 ProcessBuilder build_test = new ProcessBuilder(
                         "cmd.exe", "/c", "net user " + getUsername() + domain);
                 Process p = build_test.start();
-                GetInformation(p);
+                if(checkCheckbox()) {
+                    GetInformation(p, 4, 8, 9, 11, 12, 21);
+                }
+                else{
+                    GetInformation(p, 2, 6, 7, 9, 10, 19);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -291,7 +291,7 @@ public class NetUserClass {
         }
 
         else{
-            myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Brak wszystkich wymaganych danych", "Podaj nazwę użytkownika");
+            myAlert(Alert.AlertType.ERROR, "Wystapił błąd", "Brak wszystkich wymaganych danych", "Podaj nazwę użytkownika");
         }
     }
 
@@ -308,7 +308,7 @@ public class NetUserClass {
 
     @FXML
     void aboutAuthor() {
-        myAlert(Alert.AlertType.INFORMATION, "Autor programu", "Informacja o autorze programu", "Autor: Wojciech Kozioł\nFirma: Fujitsu");
+        myAlert(Alert.AlertType.INFORMATION, "Autor programu", "Informacja o autorze programu", "Autor: Wojciech Koziol\nFirma: Fujitsu");
     }
 
     @FXML
