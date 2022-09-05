@@ -18,7 +18,7 @@ public class App extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/NetUser.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("NetUser-GUI");
-            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")));
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icons/icon.png")));
             stage.getIcons().add(icon);
             stage.setScene(scene);
             stage.setResizable(false);

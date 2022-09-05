@@ -53,9 +53,24 @@ public class NetUserClass {
     @FXML
     private MFXTextField username;
 
+    String domain = "";
+
     boolean checkUsername(MFXTextField textField) {
         String usernameText = textField.getText();
         return !usernameText.isEmpty();
+    }
+
+    boolean checkCheckbox(){
+        if(domainCheckbox.isSelected()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    String setDomain(){
+        return " /domain";
     }
 
     String getUsername() {
@@ -63,7 +78,6 @@ public class NetUserClass {
     }
 
     void myAlert(Alert.AlertType alertType, String title, String header, String content) {
-
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -157,9 +171,15 @@ public class NetUserClass {
     @FXML
     void Search() {
         if (checkUsername(username)) {
+            if(checkCheckbox()){
+                domain = setDomain();
+            }
+            else{
+                domain = "";
+            }
             try {
                 ProcessBuilder build_test = new ProcessBuilder(
-                        "cmd.exe", "/c", "net user " + getUsername());
+                        "cmd.exe", "/c", "net user " + getUsername() + domain);
                 Process p = build_test.start();
                 GetInformation(p);
             } catch (IOException e) {
@@ -194,9 +214,15 @@ public class NetUserClass {
     void manageAccount(String operation){
 
         if (checkUsername(username)) {
+            if(checkCheckbox()){
+                domain = setDomain();
+            }
+            else{
+                domain = "";
+            }
             try {
                 ProcessBuilder build_test = new ProcessBuilder(
-                        "cmd.exe", "/c", "net user " + getUsername() + " /ACTIVE:"+ operation );
+                        "cmd.exe", "/c", "net user " + getUsername() + " /ACTIVE:"+ operation + domain );
                 Process p = build_test.start();
                 int r = p.waitFor(); // Let the process finish.
                 if (r != 0) { // Error
@@ -226,9 +252,15 @@ public class NetUserClass {
 
     void setPassword(String password){
         if (checkUsername(username)) {
+            if(checkCheckbox()){
+                domain = setDomain();
+            }
+            else{
+                domain = "";
+            }
             try {
                 ProcessBuilder build_test = new ProcessBuilder(
-                        "cmd.exe", "/c", "net user " + getUsername() + " " + password);
+                        "cmd.exe", "/c", "net user " + getUsername() + " " + password + domain);
                 Process p = build_test.start();
                 int r = p.waitFor(); // Let the process finish.
                 if (r != 0) { // Error

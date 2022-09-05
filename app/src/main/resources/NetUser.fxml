@@ -13,14 +13,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#keyReleased" prefHeight="679.0" prefWidth="564.0" style="-fx-background-color: FFFF;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="netuser.NetUserClass">
+<AnchorPane fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#keyReleased" prefHeight="679.0" prefWidth="564.0" style="-fx-background-color: FFFF;" stylesheets="@css/stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="netuser.NetUserClass">
    <children>
       <Text layoutX="337.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa użytkownika">
          <font>
             <Font name="Visby Round CF Medium" size="20.0" />
          </font>
       </Text>
-      <AnchorPane layoutY="22.0" prefHeight="658.0" prefWidth="277.0" style="-fx-background-color: #106ebe; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);" stylesheets="@stylesheet.css">
+      <AnchorPane layoutY="22.0" prefHeight="658.0" prefWidth="277.0" style="-fx-background-color: #106ebe; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);" stylesheets="@css/stylesheet.css">
          <children>
             <Text fill="WHITE" layoutX="90.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista operacji">
                <font>
@@ -35,12 +35,7 @@
             </Text>
             <ImageView fitHeight="53.0" fitWidth="61.0" layoutX="14.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@main_64.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="53.0" fitWidth="61.0" layoutX="11.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@key_64.png" />
+                  <Image url="@icons/main_64.png" />
                </image>
             </ImageView>
             <MFXPasswordField fx:id="newPassword" floatingText="Nowe hasło" layoutX="74.0" layoutY="345.0" prefHeight="47.0" prefWidth="159.0" />
@@ -48,6 +43,11 @@
             <MFXButton buttonType="RAISED" layoutX="45.0" layoutY="204.0" minHeight="27.0" minWidth="70.0" onAction="#setDefaultPassword" prefHeight="37.0" prefWidth="190.0" text="Ustaw standardowe hasło SD" />
             <MFXButton buttonType="RAISED" layoutX="73.0" layoutY="157.0" minHeight="27.0" minWidth="70.0" onAction="#blockAccount" prefHeight="37.0" prefWidth="133.0" text="Zablokuj konto AD" />
             <MFXButton buttonType="RAISED" layoutX="73.0" layoutY="106.0" minHeight="27.0" minWidth="70.0" onAction="#unclockAccount" prefHeight="37.0" prefWidth="133.0" text="Odblokuj konto AD" />
+            <ImageView fitHeight="53.0" fitWidth="61.0" layoutX="14.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/key_64.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="564.0">
@@ -85,14 +85,14 @@
       <MFXTextField fx:id="lastLogin" accessibleText="g" editable="false" floatMode="BORDER" floatingText="Ostatne logowanie" layoutX="338.0" layoutY="620.0" prefHeight="43.0" prefWidth="170.0" />
       <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="288.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@user_64.png" />
+            <Image url="@icons/user_64.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="331.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@result_64.png" />
+            <Image url="@icons/result_64.png" />
          </image>
       </ImageView>
-      <MFXCheckbox fx:id="domainCheckbox" layoutX="335.0" layoutY="162.0" text="Użytkownik domenowy" />
+      <MFXCheckbox fx:id="domainCheckbox" allowIndeterminate="true" layoutX="335.0" layoutY="162.0" selected="true" text="Użytkownik domenowy" />
    </children>
 </AnchorPane>
