@@ -12,7 +12,7 @@ sourceSets {
     main {
         resources {
             srcDirs = ["src/main/resources"]
-            includes = ["**/*.fxml", "**/*.css", "**/*.png"]
+            includes = ["**/*.fxml", "**/*.css", "**/*.png", "**/*.ico"]
         }
     }
 }
@@ -32,6 +32,7 @@ dependencies {
 application {
     mainClass = 'netuser.App'
     mainModule ='netuser.app.main'
+
 }
 
 javafx{

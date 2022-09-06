@@ -51,6 +51,9 @@ public class NetUserClass {
     private MFXButton searchBtn;
 
     @FXML
+    private MFXButton changeBtn;
+
+    @FXML
     private MFXTextField username;
 
     String domain = "";
@@ -203,9 +206,12 @@ public class NetUserClass {
         String repeatedPassword = repeatPassword.getText();
 
         if(password.equals(repeatedPassword)){
-            setPassword(password);
+            newPassword.setStyle("-fx-border-color: white");
+            setPassword(password,"Wynik operacji", "Operacja powiodła się", "Pomyślnie zmieniono hasło użytkownika", "Wystąpił błąd", "Nie zmieniono hasła użytkownika");
         }
         else{
+            newPassword.setStyle("-fx-border-color: red");
+            repeatPassword.setStyle("-fx-border-color: red");
             myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wprowadzone dane są niepoprawne", "Hasła różnią się od siebie");
         }
 
@@ -250,7 +256,7 @@ public class NetUserClass {
         manageAccount("NO");
     }
 
-    void setPassword(String password){
+    void setPassword(String password, String titleS, String headerS, String contentS, String headerF, String contentF){
         if (checkUsername(username)) {
             if(checkCheckbox()){
                 domain = setDomain();
@@ -264,11 +270,11 @@ public class NetUserClass {
                 Process p = build_test.start();
                 int r = p.waitFor(); // Let the process finish.
                 if (r != 0) { // Error
-                    myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem ze zmianą hasła", "Hasło użytkownika " + getUsername() + " nie zostało pomyślnie zmienione");
+                    myAlert(Alert.AlertType.ERROR, titleS, headerF, contentF + getUsername());
                     clearPasswords();
                 }
                 else{
-                    myAlert(Alert.AlertType.INFORMATION, "Operacja powiodła się", "Hasło zostało ustawione", "Hasło użytkownika " + getUsername() + " zostało pomyślnie zmienione");
+                    myAlert(Alert.AlertType.INFORMATION, titleS, headerS, contentS+ getUsername());
                     clearPasswords();
                 }
             } catch (IOException | InterruptedException e) {
@@ -286,13 +292,23 @@ public class NetUserClass {
         if (checkUsername(username)) {
             boolean confirmation = myConfirmation("Potwierdź operację", "Czy na pewno chcesz wykonać tą akcję?", "Hasło do konta użytkownika " + getUsername() +" zmieni się na standardowe SD");
             if(confirmation){
-                setPassword(defaultPassword);
+                setPassword(defaultPassword,"Wynik operacji", "Operacja powiodła się", "Pomyślnie zmieniono hasło użytkownika ", "Wystąpił błąd", "Nie zmieniono hasła użytkownika ");
             }
         }
 
         else{
             myAlert(Alert.AlertType.ERROR, "Wystapił błąd", "Brak wszystkich wymaganych danych", "Podaj nazwę użytkownika");
         }
+    }
+
+    @FXML
+    private void setPassChange(){
+        setPassword("/logonpasswordchg:yes","Wynik operacji", "Operacja powiodła się", "Wymuszono zmianę hasła użytkownikowi ", "Wystąpił błąd", "Nie wymuszono zmianę hasła użytkownikowi ");
+    }
+
+    @FXML
+    private void removePassChange(){
+        setPassword("/logonpasswordchg:no","Wynik operacji", "Operacja powiodła się", "Anulowano zmianę hasła użytkownikowi ", "Wystąpił błąd", "Nie anulowano zmiany hasła użytkownikowi ");
     }
 
     @FXML
@@ -314,7 +330,7 @@ public class NetUserClass {
     @FXML
     void aboutProgram() {
         myAlert(Alert.AlertType.INFORMATION, "O programie", "Informacja o programie", "Program służy do wyświetlania informacji o użytkowniku których brakuje w przystawce Active Directory\n" +
-                "Jest on ciągle w rozwoju, aktualnie posiada podstawowe funkcje - wyświetlania informacji, odblokowania konta oraz zmiany hasła.");
+                "Jest on ciągle w rozwoju, aktualnie posiada podstawowe funkcje - wyświetlania informacji, odblokowanie/blokowanie konta, zmianę hasła, ustawienie standardowego jednym przyciskiem oraz wymuszenie zmiany hasła i anulowanie tej operacji.");
     }
 
     @FXML
@@ -328,6 +344,13 @@ public class NetUserClass {
     @FXML
     void exit() {
         System.exit(0);
+    }
+
+    @FXML
+    void changePasswordEnter(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            changeBtn.fire();
+        }
     }
 
 
