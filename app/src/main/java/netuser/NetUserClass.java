@@ -64,12 +64,7 @@ public class NetUserClass {
     }
 
     boolean checkCheckbox(){
-        if(domainCheckbox.isSelected()){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return domainCheckbox.isSelected();
     }
 
     String setDomain(){
@@ -105,7 +100,8 @@ public class NetUserClass {
         int size;
         StringBuilder result = new StringBuilder();
         String after = text.trim().replaceAll(" +", " ");
-        String[] parts = after.split(" ");
+        String after2 = after.trim();
+        String[] parts = after2.split(" ");
         size = parts.length;
         while (number < size) {
             result.append(parts[number]).append(" ");
@@ -119,24 +115,38 @@ public class NetUserClass {
             BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String output;
             int i = 0;
+            int accActive = 3;
+            int passwordExp = 3;
             while ((output = output_reader.readLine()) != null) {
                 i++;
+                if (i == 1) {
+                    if (output.matches("The request(.*)")) {
+                        accActive = 2;
+                        passwordExp = 2;
+                    }
+                }
+
                 if (i == name) {
                     fullName.setText(formatString(output, 2));
                 }
 
                 if (i == activeAcc) {
-                    activeAccount.setText(formatString(output, 3));
-                    if (activeAccount.getText().matches("(.*)Tak(.*)")) {
+                    activeAccount.setText(formatString(output, accActive));
+                    if ((activeAccount.getText().matches("(.*)Tak(.*)")) || (activeAccount.getText().matches("(.*)Yes(.*)"))) {
+                        activeAccount.setText("Tak");
                         activeAccount.setStyle("-fx-border-color: green");
-                    } else if (activeAccount.getText().matches("(.*)Nie(.*)")) {
+                    }
+                    else if ((activeAccount.getText().matches("(.*)Nie(.*)")) || (activeAccount.getText().matches("(.*)No(.*)"))) {
+                        activeAccount.setText("Nie");
                         activeAccount.setStyle("-fx-border-color: tomato");
+
                     }
                 }
 
                 if (i == accExp) {
                     accountExpires.setText(formatString(output, 2));
                     if (accountExpires.getText().matches("(.*)N(.*)")) {
+                        accountExpires.setText("Nigdy");
                         accountExpires.setStyle("-fx-border-color: green");
                     }
                 }
@@ -146,7 +156,7 @@ public class NetUserClass {
                 }
 
                 if (i == passExp) {
-                    passwordExpires.setText(formatString(output, 3));
+                    passwordExpires.setText(formatString(output, passwordExp));
                     if (passwordExpires.getText().matches("(.*)N(.*)")) {
                         passwordExpires.setStyle("-fx-border-color: green");
                     }
@@ -168,6 +178,7 @@ public class NetUserClass {
 
     @FXML
     void Search() {
+        clearBorders();
         if (checkUsername(username)) {
             if(checkCheckbox()){
                 domain = setDomain();
@@ -331,6 +342,12 @@ public class NetUserClass {
     void aboutProgram() {
         myAlert(Alert.AlertType.INFORMATION, "O programie", "Informacja o programie", "Program służy do wyświetlania informacji o użytkowniku których brakuje w przystawce Active Directory\n" +
                 "Jest on ciągle w rozwoju, aktualnie posiada podstawowe funkcje - wyświetlania informacji, odblokowanie/blokowanie konta, zmianę hasła, ustawienie standardowego jednym przyciskiem oraz wymuszenie zmiany hasła i anulowanie tej operacji.");
+    }
+
+    void clearBorders(){
+        for (MFXTextField textField : Arrays.asList(username, fullName, activeAccount, accountExpires, lastChange, passwordExpires, lastLogin, newPassword, repeatPassword)) {
+            textField.setStyle("-fx-background-color: #a9a9a9 , white , white");
+        }
     }
 
     @FXML

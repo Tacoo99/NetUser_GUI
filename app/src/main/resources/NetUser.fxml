@@ -13,88 +13,98 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="564.0" style="-fx-background-color: FFFF;" stylesheets="@css/stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="netuser.NetUserClass">
-   <children>
-      <Text layoutX="337.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa użytkownika">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0"
+            prefWidth="564.0" style="-fx-background-color: FFFF;" stylesheets="@css/stylesheet.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="netuser.NetUserClass">
+   <Text layoutX="337.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa użytkownika">
+      <font>
+         <Font name="Visby Round CF Medium" size="20.0"/>
+      </font>
+   </Text>
+   <AnchorPane layoutY="22.0" prefHeight="658.0" prefWidth="277.0"
+               style="-fx-background-color: #106ebe; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);"
+               stylesheets="@css/stylesheet.css">
+      <Text fill="WHITE" layoutX="78.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista operacji">
          <font>
-            <Font name="Visby Round CF Medium" size="20.0" />
+            <Font name="Visby Round CF Medium" size="22.0"/>
          </font>
       </Text>
-      <AnchorPane layoutY="22.0" prefHeight="658.0" prefWidth="277.0" style="-fx-background-color: #106ebe; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);" stylesheets="@css/stylesheet.css">
-         <children>
-            <Text fill="WHITE" layoutX="91.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista operacji">
-               <font>
-                  <Font name="Visby Round CF Medium" size="22.0" />
-               </font>
-            </Text>
-            <MFXButton fx:id="changeBtn" buttonType="RAISED" layoutX="87.0" layoutY="562.0" minHeight="27.0" minWidth="70.0" onAction="#changePassword" prefHeight="37.0" prefWidth="133.0" text="Wykonaj" />
-            <Text fill="WHITE" layoutX="79.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zmień hasło AD">
-               <font>
-                  <Font name="Visby Round CF Medium" size="22.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="53.0" fitWidth="61.0" layoutX="15.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@icons/main_64.png" />
-               </image>
-            </ImageView>
-            <MFXPasswordField fx:id="newPassword" floatingText="Nowe hasło" layoutX="74.0" layoutY="432.0" onKeyReleased="#changePasswordEnter" prefHeight="47.0" prefWidth="159.0" />
-            <MFXPasswordField fx:id="repeatPassword" floatingText="Powtórz hasło" layoutX="74.0" layoutY="492.0" onKeyReleased="#changePasswordEnter" prefHeight="47.0" prefWidth="159.0" />
-            <MFXButton buttonType="RAISED" layoutX="46.0" layoutY="179.0" minHeight="27.0" minWidth="70.0" onAction="#setDefaultPassword" prefHeight="37.0" prefWidth="190.0" text="Ustaw standardowe hasło SD" />
-            <MFXButton buttonType="RAISED" layoutX="74.0" layoutY="128.0" minHeight="27.0" minWidth="70.0" onAction="#blockAccount" prefHeight="37.0" prefWidth="133.0" text="Zablokuj konto AD" />
-            <MFXButton buttonType="RAISED" layoutX="74.0" layoutY="77.0" minHeight="27.0" minWidth="70.0" onAction="#unclockAccount" prefHeight="37.0" prefWidth="133.0" text="Odblokuj konto AD" />
-            <ImageView fitHeight="53.0" fitWidth="61.0" layoutX="14.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@icons/key_64.png" />
-               </image>
-            </ImageView>
-            <MFXButton buttonType="RAISED" layoutX="26.0" layoutY="230.0" minHeight="27.0" minWidth="70.0" onAction="#setPassChange" prefHeight="37.0" prefWidth="225.0" text="Wymuś zmianę hasła przy logowaniu" />
-            <MFXButton buttonType="RAISED" layoutX="26.0" layoutY="281.0" minHeight="27.0" minWidth="70.0" onAction="#removePassChange" prefHeight="37.0" prefWidth="225.0" text="Anuluj zmianę hasła przy logowaniu" />
-         </children>
-      </AnchorPane>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="564.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Operacje">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#clearFields" text="Wyczyść" />
-              <MenuItem mnemonicParsing="false" onAction="#exit" text="Wyjdź" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Pomoc">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#aboutProgram" text="O programie" />
-                  <MenuItem mnemonicParsing="false" onAction="#aboutAuthor" text="Autor" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <MFXTextField fx:id="fullName" accessibleText="g" editable="false" floatMode="BORDER" floatingText="Pełna nazwa" layoutX="338.0" layoutY="340.0" prefHeight="43.0" prefWidth="170.0" />
-      <MFXTextField fx:id="activeAccount" accessibleText="g" editable="false" floatMode="BORDER" floatingText="Konto aktywne" layoutX="338.0" layoutY="396.0" prefHeight="43.0" prefWidth="170.0" />
-      <MFXTextField fx:id="username" accessibleText="g" floatMode="BORDER" floatingText="Login" layoutX="334.0" layoutY="107.0" onKeyReleased="#keyReleased" prefHeight="37.0" prefWidth="159.0" textLimit="50">
+      <MFXButton fx:id="changeBtn" buttonType="RAISED" layoutX="72.0" layoutY="561.0" minHeight="27.0"
+                 minWidth="70.0" onAction="#changePassword" prefHeight="37.0" prefWidth="133.0" text="Wykonaj"/>
+      <Text fill="WHITE" layoutX="79.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zmień hasło AD">
          <font>
-            <Font name="Visby Round CF Medium" size="12.0" />
-         </font>
-      </MFXTextField>
-      <MFXButton fx:id="searchBtn" buttonType="RAISED" layoutX="338.0" layoutY="205.0" minHeight="27.0" minWidth="70.0" onAction="#Search" prefHeight="37.0" prefWidth="133.0" text="Szukaj" />
-      <Text layoutX="385.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wynik">
-         <font>
-            <Font name="Visby Round CF Medium" size="20.0" />
+            <Font name="Visby Round CF Medium" size="22.0"/>
          </font>
       </Text>
-      <MFXTextField fx:id="accountExpires" accessibleText="g" editable="false" floatMode="BORDER" floatingText="Konto wygasa" layoutX="338.0" layoutY="452.0" prefHeight="43.0" prefWidth="170.0" />
-      <MFXTextField fx:id="lastChange" accessibleText="g" editable="false" floatMode="BORDER" floatingText="Ostatnia zmiana hasła" layoutX="338.0" layoutY="508.0" prefHeight="43.0" prefWidth="170.0" />
-      <MFXTextField fx:id="passwordExpires" accessibleText="g" editable="false" floatMode="BORDER" floatingText="Hasło wygasa" layoutX="338.0" layoutY="564.0" prefHeight="43.0" prefWidth="170.0" />
-      <MFXTextField fx:id="lastLogin" accessibleText="g" editable="false" floatMode="BORDER" floatingText="Ostatne logowanie" layoutX="338.0" layoutY="620.0" prefHeight="43.0" prefWidth="170.0" />
-      <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="288.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@icons/user_64.png" />
-         </image>
+      <ImageView fitHeight="53.0" fitWidth="61.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <Image url="@icons/main_64.png"/>
       </ImageView>
-      <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="331.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@icons/result_64.png" />
-         </image>
+      <MFXPasswordField fx:id="newPassword" floatingText="Nowe hasło" layoutX="61.0" layoutY="429.0"
+                        onKeyReleased="#changePasswordEnter" prefHeight="47.0" prefWidth="159.0"/>
+      <MFXPasswordField fx:id="repeatPassword" floatingText="Powtórz hasło" layoutX="62.0" layoutY="491.0"
+                        onKeyReleased="#changePasswordEnter" prefHeight="47.0" prefWidth="159.0"/>
+      <MFXButton buttonType="RAISED" layoutX="46.0" layoutY="179.0" minHeight="27.0" minWidth="70.0"
+                 onAction="#setDefaultPassword" prefHeight="37.0" prefWidth="190.0"
+                 text="Ustaw standardowe hasło SD"/>
+      <MFXButton buttonType="RAISED" layoutX="74.0" layoutY="128.0" minHeight="27.0" minWidth="70.0"
+                 onAction="#blockAccount" prefHeight="37.0" prefWidth="133.0" text="Zablokuj konto AD"/>
+      <MFXButton buttonType="RAISED" layoutX="74.0" layoutY="77.0" minHeight="27.0" minWidth="70.0"
+                 onAction="#unclockAccount" prefHeight="37.0" prefWidth="133.0" text="Odblokuj konto AD"/>
+      <ImageView fitHeight="53.0" fitWidth="61.0" layoutX="14.0" layoutY="362.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <Image url="@icons/key_64.png"/>
       </ImageView>
-      <MFXCheckbox fx:id="domainCheckbox" layoutX="335.0" layoutY="162.0" selected="true" text="Użytkownik domenowy" />
-   </children>
+      <MFXButton buttonType="RAISED" layoutX="26.0" layoutY="230.0" minHeight="27.0" minWidth="70.0"
+                 onAction="#setPassChange" prefHeight="37.0" prefWidth="225.0"
+                 text="Wymuś zmianę hasła przy logowaniu"/>
+      <MFXButton buttonType="RAISED" layoutX="26.0" layoutY="281.0" minHeight="27.0" minWidth="70.0"
+                 onAction="#removePassChange" prefHeight="37.0" prefWidth="225.0"
+                 text="Anuluj zmianę hasła przy logowaniu"/>
+   </AnchorPane>
+   <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="564.0">
+      <Menu mnemonicParsing="false" text="Operacje">
+         <MenuItem mnemonicParsing="false" onAction="#clearFields" text="Wyczyść"/>
+         <MenuItem mnemonicParsing="false" onAction="#exit" text="Wyjdź"/>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Pomoc">
+         <MenuItem mnemonicParsing="false" onAction="#aboutProgram" text="O programie"/>
+         <MenuItem mnemonicParsing="false" onAction="#aboutAuthor" text="Autor"/>
+      </Menu>
+   </MenuBar>
+   <MFXTextField fx:id="fullName" accessibleText="g" editable="false" floatMode="BORDER" floatingText="Pełna nazwa"
+                 layoutX="338.0" layoutY="340.0" prefHeight="43.0" prefWidth="170.0"/>
+   <MFXTextField fx:id="activeAccount" accessibleText="g" editable="false" floatMode="BORDER"
+                 floatingText="Konto aktywne" layoutX="338.0" layoutY="396.0" prefHeight="43.0" prefWidth="170.0"/>
+   <MFXTextField fx:id="username" accessibleText="g" floatMode="BORDER" floatingText="Login" layoutX="334.0"
+                 layoutY="107.0" onKeyReleased="#keyReleased" prefHeight="37.0" prefWidth="159.0" textLimit="50">
+      <font>
+         <Font name="Visby Round CF Medium" size="12.0"/>
+      </font>
+   </MFXTextField>
+   <MFXButton fx:id="searchBtn" buttonType="RAISED" layoutX="338.0" layoutY="205.0" minHeight="27.0" minWidth="70.0"
+              onAction="#Search" prefHeight="37.0" prefWidth="133.0" text="Szukaj"/>
+   <Text layoutX="385.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wynik">
+      <font>
+         <Font name="Visby Round CF Medium" size="20.0"/>
+      </font>
+   </Text>
+   <MFXTextField fx:id="accountExpires" accessibleText="g" editable="false" floatMode="BORDER"
+                 floatingText="Konto wygasa" layoutX="338.0" layoutY="452.0" prefHeight="43.0" prefWidth="170.0"/>
+   <MFXTextField fx:id="lastChange" accessibleText="g" editable="false" floatMode="BORDER"
+                 floatingText="Ostatnia zmiana hasła" layoutX="338.0" layoutY="508.0" prefHeight="43.0"
+                 prefWidth="170.0"/>
+   <MFXTextField fx:id="passwordExpires" accessibleText="g" editable="false" floatMode="BORDER"
+                 floatingText="Hasło wygasa" layoutX="338.0" layoutY="564.0" prefHeight="43.0" prefWidth="170.0"/>
+   <MFXTextField fx:id="lastLogin" accessibleText="g" editable="false" floatMode="BORDER"
+                 floatingText="Ostatne logowanie" layoutX="338.0" layoutY="620.0" prefHeight="43.0" prefWidth="170.0"/>
+   <ImageView fitHeight="43.0" fitWidth="47.0" layoutX="288.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@icons/user_64.png"/>
+   </ImageView>
+   <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="331.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@icons/result_64.png"/>
+   </ImageView>
+   <MFXCheckbox fx:id="domainCheckbox" layoutX="335.0" layoutY="162.0" onKeyReleased="#keyReleased" selected="true"
+                text="Użytkownik domenowy"/>
 </AnchorPane>
