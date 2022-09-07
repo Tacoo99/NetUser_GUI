@@ -136,7 +136,7 @@ public class NetUserClass {
                         activeAccount.setText("Tak");
                         activeAccount.setStyle("-fx-border-color: green");
                     }
-                    else if ((activeAccount.getText().matches("(.*)Nie(.*)")) || (activeAccount.getText().matches("(.*)No(.*)"))) {
+                    else if ((activeAccount.getText().matches("(.*)Nie(.*)")) || (activeAccount.getText().matches("(.*)No(.*)")) || (activeAccount.getText().matches("(.*)Locked(.*)"))) {
                         activeAccount.setText("Nie");
                         activeAccount.setStyle("-fx-border-color: tomato");
 
