@@ -112,12 +112,13 @@ public class NetUserClass {
 
     void GetInformation(Process p, int name, int activeAcc, int accExp, int lastCha, int passExp, int lastLog) {
         try {
-            BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
             String output;
             int i = 0;
             int accActive = 3;
             int passwordExp = 3;
             while ((output = output_reader.readLine()) != null) {
+                System.out.println(output);
                 i++;
                 if (i == 1) {
                     if (output.matches("The request(.*)")) {
