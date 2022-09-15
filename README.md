@@ -1,6 +1,5 @@
-<span align="center">
-# NetUser_GUI
 
+<span align="center">
 Application is written in Java, Gradle, SceneBuilder + JavaFX.
 
  <b>Still in production,</b> <i>more functions soon.</i>
