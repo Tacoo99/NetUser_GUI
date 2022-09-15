@@ -12,6 +12,7 @@
  <b>About program</b>
  <p>The program is used to display user information that is missing from the Active Directory snap-in</p>
  <p>It is still under development, currently has basic functions:</p>
+ </span>
  <ul>
   <li>displaying information about user(password expire date!)</li>
   <li>unlocking / blocking an account</li>
@@ -19,4 +20,4 @@
   <li>forcing a password change and canceling</li>
   <li>creating a GOD Directory ;)</li>
 </ul>
-<p>If you have an idea for a new feature, feel free to let me know, thanks ;)</p>
+<p align="center">If you have an idea for a new feature, feel free to let me know, thanks ;)</p>
