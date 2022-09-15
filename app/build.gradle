@@ -47,10 +47,12 @@ jlink {
 
     jpackage{
         installerOutputDir = file("$buildDir/installers")
+        imageOptions += ['--icon', 'src/main/resources/icons/icon.ico']
         installerOptions = [
                 '--vendor', 'WKoziol-Fujitsu',
                 '--win-per-user-install', '--win-dir-chooser',
                 '--win-shortcut', '--win-menu'
         ]
+
     }
 }

@@ -25,6 +25,7 @@ public class NetUserClass {
     @FXML
     private MFXTextField fullName;
 
+
     @FXML
     private MFXTextField accountExpires;
 
@@ -93,7 +94,8 @@ public class NetUserClass {
         alert.initOwner(searchBtn.getScene().getWindow());
 
         Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == ButtonType.OK;
+        return result.filter(buttonType -> buttonType == ButtonType.OK).isPresent();
+
     }
 
     String formatString(String text, int number) {
@@ -112,7 +114,7 @@ public class NetUserClass {
 
     void GetInformation(Process p, int name, int activeAcc, int accExp, int lastCha, int passExp, int lastLog) {
         try {
-            BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
+            BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String output;
             int i = 0;
             int accActive = 3;
@@ -342,7 +344,7 @@ public class NetUserClass {
     @FXML
     void aboutProgram() {
         myAlert(Alert.AlertType.INFORMATION, "O programie", "Informacja o programie", "Program służy do wyświetlania informacji o użytkowniku których brakuje w przystawce Active Directory\n" +
-                "Jest on ciągle w rozwoju, aktualnie posiada podstawowe funkcje - wyświetlania informacji, odblokowanie/blokowanie konta, zmianę hasła, ustawienie standardowego jednym przyciskiem oraz wymuszenie zmiany hasła i anulowanie tej operacji.");
+                "Jest on ciągle w rozwoju, aktualnie posiada podstawowe funkcje - wyświetlania informacji, odblokowanie/blokowanie konta, zmianę hasła, ustawienie standardowego jednym przyciskiem, wymuszenie zmiany hasła oraz tworzenie katalogu Boga ;)");
     }
 
     void clearBorders(){
@@ -370,6 +372,21 @@ public class NetUserClass {
             changeBtn.fire();
         }
     }
-
-
+    @FXML
+    void createShortcut() {
+        try {
+            ProcessBuilder build_test = new ProcessBuilder(
+                    "cmd.exe", "/c", "mkdir %USERPROFILE%\\Desktop\\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}");
+            Process p = build_test.start();
+            int r = p.waitFor(); // Let the process finish.
+            if (r != 0) { // Error
+                myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem z utworzeniem katalogu Boga", "Nie dla Ciebie boskie narzędzia, spróbuj później ;)");
+            }
+            else{
+                myAlert(Alert.AlertType.INFORMATION, "Powodzenie", "Utworzono katalog Boga", "Katalog Boga jest na pulpicie, miłej zabawy ;)");
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
