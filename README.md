@@ -20,9 +20,5 @@ Application is written in Java, Gradle, SceneBuilder + JavaFX.
   <li>creating a GOD Directory ;)</li>
 </ul>
 
-<span align="center">
 <p>If you have an idea for a new feature, feel free to let me know, thanks ;)</p>
- </span>
-
-
-
+</span>
