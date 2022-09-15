@@ -1,9 +1,8 @@
 <span align="center">
-# NetUser_GUI
  <p align="center"> Application is written in Java, Gradle, SceneBuilder + JavaFX.</p>
  <p align="center"><b>Still in production,</b> <i>more functions soon.</i></p>
 <br><br>
- <b>Application screenshohot</p></b>
+ <p align="center"><b>Application screenshohot</p></b></p>
  <p><image src="https://user-images.githubusercontent.com/61277838/189067490-33b6b031-2e9f-47b4-b4ee-25fbaed32c7a.png"></p>
  <br><br>
 
