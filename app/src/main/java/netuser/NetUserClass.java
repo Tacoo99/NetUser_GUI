@@ -329,7 +329,7 @@ public class NetUserClass {
 
     @FXML
     void setDefaultPassword(){
-        String defaultPassword = "Lato2022";
+        String defaultPassword = "[Provide your default password here]";
         if (checkUsername(username)) {
             boolean confirmation = myConfirmation("Potwierdź operację", "Czy na pewno chcesz wykonać tą akcję?", "Hasło do konta użytkownika " + getUsername() +" zmieni się na standardowe SD");
             if(confirmation){
