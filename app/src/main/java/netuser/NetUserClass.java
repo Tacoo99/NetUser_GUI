@@ -9,8 +9,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -170,11 +174,34 @@ public class NetUserClass {
                 }
             }
 
+            getOU_DC();
+
             int r = p.waitFor(); // Let the process finish.
             if (r != 0) { // Error
                 myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem z danymi wejściowymi", "Nie znaleziono użytkownika " + getUsername());
             }
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void getOU_DC(){
+        try {
+            ProcessBuilder build_test = new ProcessBuilder(
+                    "cmd.exe", "/c", "dsquery user -name " + fullName.getText());
+            Process p = build_test.start();
+            if(checkCheckbox()) {
+                BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String output;
+                while ((output = output_reader.readLine()) != null) {
+                    System.out.println(output);
+                }
+            }
+            else{
+               myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "ie można pobrać danych", "Nie można było pobrać danych o obiektach użytkownika");
+            }
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -374,19 +401,19 @@ public class NetUserClass {
     }
     @FXML
     void createShortcut() {
-        try {
-            ProcessBuilder build_test = new ProcessBuilder(
-                    "cmd.exe", "/c", "mkdir %USERPROFILE%\\Desktop\\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}");
-            Process p = build_test.start();
-            int r = p.waitFor(); // Let the process finish.
-            if (r != 0) { // Error
-                myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem z utworzeniem katalogu Boga", "Nie dla Ciebie boskie narzędzia, spróbuj później ;)");
+            try {
+                ProcessBuilder build_test = new ProcessBuilder(
+                        "cmd.exe", "/c", "mkdir %USERPROFILE%\\Desktop\\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}");
+                Process p = build_test.start();
+                int r = p.waitFor(); // Let the process finish.
+                if (r != 0) { // Error
+                    myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem z utworzeniem katalogu Boga", "Katalog Boga jest już na pulpicie ;)");
+                } else {
+                    myAlert(Alert.AlertType.INFORMATION, "Powodzenie", "Utworzono katalog Boga", "Katalog Boga jest na pulpicie, miłej zabawy ;)");
+                }
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
             }
-            else{
-                myAlert(Alert.AlertType.INFORMATION, "Powodzenie", "Utworzono katalog Boga", "Katalog Boga jest na pulpicie, miłej zabawy ;)");
-            }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
-}
+
