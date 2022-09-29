@@ -9,12 +9,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -29,9 +25,11 @@ public class NetUserClass {
     @FXML
     private MFXTextField fullName;
 
-
     @FXML
     private MFXTextField accountExpires;
+
+    @FXML
+    private MFXTextField ouObjects;
 
     @FXML
     private MFXTextField activeAccount;
@@ -174,11 +172,12 @@ public class NetUserClass {
                 }
             }
 
-            getOU_DC();
-
             int r = p.waitFor(); // Let the process finish.
             if (r != 0) { // Error
                 myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "Wystąpił problem z danymi wejściowymi", "Nie znaleziono użytkownika " + getUsername());
+            }
+            else{
+                getOU_DC();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -189,17 +188,18 @@ public class NetUserClass {
     void getOU_DC(){
         try {
             ProcessBuilder build_test = new ProcessBuilder(
-                    "cmd.exe", "/c", "dsquery user -name " + fullName.getText());
+                    "cmd.exe", "/c", "dsquery user -name " + username.getText());
             Process p = build_test.start();
             if(checkCheckbox()) {
                 BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String output;
                 while ((output = output_reader.readLine()) != null) {
-                    System.out.println(output);
+                    ouObjects.setText(output);
                 }
             }
             else{
-               myAlert(Alert.AlertType.ERROR, "Wystąpił błąd", "ie można pobrać danych", "Nie można było pobrać danych o obiektach użytkownika");
+                ouObjects.setText("Brak, uzytkownik lokalny");
+                ouObjects.setStyle("-fx-border-color: tomato");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -382,7 +382,7 @@ public class NetUserClass {
 
     @FXML
     void clearFields() {
-        for (MFXTextField textField : Arrays.asList(username, fullName, activeAccount, accountExpires, lastChange, passwordExpires, lastLogin, newPassword, repeatPassword)) {
+        for (MFXTextField textField : Arrays.asList(username, fullName, activeAccount, accountExpires, lastChange, passwordExpires, lastLogin, newPassword, repeatPassword, ouObjects)) {
             textField.clear();
             textField.setStyle("-fx-background-color: #a9a9a9 , white , white");
         }
