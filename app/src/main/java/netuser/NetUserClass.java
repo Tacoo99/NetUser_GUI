@@ -188,17 +188,24 @@ public class NetUserClass {
     void getOU_DC(){
         try {
             ProcessBuilder build_test = new ProcessBuilder(
-                    "cmd.exe", "/c", "dsquery user -name " + username.getText());
+                    "cmd.exe", "/c", "dsquery user -samid " + username.getText());
             Process p = build_test.start();
+            int i=0;
             if(checkCheckbox()) {
                 BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String output;
                 while ((output = output_reader.readLine()) != null) {
-                    ouObjects.setText(output);
+                    i++;
+                    String out = output.replace('"',' ');
+                    ouObjects.setText(out);
                 }
             }
             else{
                 ouObjects.setText("Brak, uzytkownik lokalny");
+                ouObjects.setStyle("-fx-border-color: tomato");
+            }
+            if(i==0){
+                ouObjects.setText("Brak, uruchom program na serwerze/kontrolerze domeny");
                 ouObjects.setStyle("-fx-border-color: tomato");
             }
         } catch (IOException e) {
