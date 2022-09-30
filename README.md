@@ -3,7 +3,8 @@
  <p align="center"><b>Still in production,</b> <i>more functions soon.</i></p>
 <br>
  <p align="center"><b>Application screenshohot</p></b></p>
- <p><image src="https://user-images.githubusercontent.com/61277838/193206603-cfdbef1a-69c2-4353-ba4b-0edd21f625f4.png"></p>
+ <p><image src="https://user-images.githubusercontent.com/61277838/193206870-10de3b8d-1d79-44ae-be5b-f4a956fb97c2.png"
+></p>
  <br><br>
 
  <p align="center"><a href="https://github.com/Tacoo99/NetUser_GUI/releases/">Latest release</a></p>
