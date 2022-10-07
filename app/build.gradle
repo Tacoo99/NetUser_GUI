@@ -32,7 +32,6 @@ dependencies {
 application {
     mainClass = 'netuser.App'
     mainModule ='netuser.app.main'
-
 }
 
 javafx{
@@ -49,7 +48,7 @@ jlink {
         installerOutputDir = file("$buildDir/installers")
         imageOptions += ['--icon', 'src/main/resources/icons/icon.ico']
         installerOptions = [
-                '--vendor', 'WKoziol-Fujitsu',
+                '--vendor', 'Wojciech Koziol',
                 '--win-per-user-install', '--win-dir-chooser',
                 '--win-shortcut', '--win-menu'
         ]
