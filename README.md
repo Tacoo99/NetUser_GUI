@@ -3,7 +3,7 @@
  <p align="center"><b>Still in production,</b> <i>more functions soon.</i></p>
 <br>
  <p align="center"><b>Application screenshohot</p></b></p>
- <p><image src="https://user-images.githubusercontent.com/61277838/193206870-10de3b8d-1d79-44ae-be5b-f4a956fb97c2.png"
+ <p><image src="https://user-images.githubusercontent.com/61277838/197127133-3f700756-bfce-4c56-ba1b-bdbf7f987e59.png"
 ></p>
  <br><br>
 
